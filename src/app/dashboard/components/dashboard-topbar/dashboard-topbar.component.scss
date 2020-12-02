@@ -1,0 +1,61 @@
+:host {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  font-family: Barlow;
+  font-style: normal;
+  font-weight: normal;
+
+  .current-date {
+    padding: 0.9375rem 0.5rem;
+    font-size: 0.75rem;
+    line-height: 1.0625rem;
+    text-align: center;
+    color: #999999;
+  }
+
+  .spacer {
+    flex: 1 1;
+  }
+
+  .location-search {
+    position: relative;
+    padding: 0.9375rem 2.1875rem 0.9375rem 0.5rem;
+    background: rgba(13, 159, 234, 0.08);
+    transition: background-color 0.5s ease-in;
+    border: none;
+    outline: none;
+    border-bottom-left-radius: 1.2rem;
+    border-top-right-radius: 1.2rem;
+    cursor: pointer;
+    user-select: none;
+
+    &:hover,
+    &:focus,
+    &:active &:hover:focus {
+      border-bottom-left-radius: 1.2rem;
+      border-top-right-radius: 1.2rem;
+      background: #79c4fac4;
+      transition: background-color 0.4s ease-out;
+
+      span {
+        color: white;
+        transition: color 0.4s ease-out;
+      }
+    }
+
+    span {
+      font-size: 1rem;
+      line-height: 1.1875rem;
+      text-align: center;
+      color: #0da0ea;
+      transition: color 0.5s ease-in;
+    }
+
+    img {
+      position: absolute;
+      right: 1.125rem;
+      top: 1.2rem;
+    }
+  }
+}

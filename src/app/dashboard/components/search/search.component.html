@@ -1,0 +1,14 @@
+<div class="backdrop" (click)="closeSearchingDialog()"></div>
+<div class="searching-wrapper">
+  <h1>Location</h1>
+  <div class="input-wrapper">
+    <input type="text" placeholder="Search city ..." autofocus #searchInput />
+    <img src="assets/icon-location.svg" alt="" />
+  </div>
+  <ul *ngIf="places$ | async as places">
+    <li *ngFor="let place of places" (click)="selectLocation(place)">
+      {{ place.name }}
+      <span>{{ place.todayForecast }} °C</span>
+    </li>
+  </ul>
+</div>

@@ -1,0 +1,110 @@
+<app-search
+  *ngIf="searchingDialog"
+  [@slideInOut]
+  (onToggleSearchingDialog)="toggleSearchingDialog()"
+  (onLocationSelect)="changeLocation($event)"
+></app-search>
+<div class="background-clouds"></div>
+<div class="background-sun"></div>
+<div class="background-city"></div>
+<div class="dashboard" *ngIf="weather$ | async as weatherData">
+  <app-dashboard-topbar
+    [currentLocation]="weatherData.place.name + ', Slovakia'"
+    (onToggleSearchingDialog)="toggleSearchingDialog()"
+  ></app-dashboard-topbar>
+  <div class="weather-widgets">
+    <app-weather-widget
+      [widgetType]="'Weather'"
+      [weatherType]="'sun'"
+      [weatherDescription]="
+        weatherData.dailyForecast[0].weatherCondition.description
+      "
+      *ngIf="weatherData.dailyForecast[0].weatherCondition"
+    ></app-weather-widget>
+
+    <app-weather-widget
+      [widgetType]="'FullScreenTemperature'"
+      [todayTempForecast]="weatherData.dailyForecast[0].temperature.day"
+    ></app-weather-widget>
+
+    <app-weather-widget
+      [widgetType]="'TempVariation'"
+      [tempMin]="weatherData.dailyForecast[0].temperature.min"
+      [tempMax]="weatherData.dailyForecast[0].temperature.max"
+    ></app-weather-widget>
+
+    <div class="properties">
+      <app-weather-widget
+        [widgetType]="'TempProperty'"
+        [propertyIcon]="'assets/icon-property-humidity.svg'"
+        [propertyValue]="weatherData.dailyForecast[0].humidity"
+        [propertyDescription]="'Humidity'"
+      ></app-weather-widget>
+      <app-weather-widget
+        [widgetType]="'TempProperty'"
+        [propertyIcon]="'assets/icon-property-pressure.svg'"
+        [propertyValue]="weatherData.dailyForecast[0].pressure + ' mBar'"
+        [propertyDescription]="'Pressure'"
+      ></app-weather-widget>
+      <app-weather-widget
+        [widgetType]="'TempProperty'"
+        [propertyIcon]="'assets/icon-property-wind.svg'"
+        [propertyValue]="weatherData.dailyForecast[0].wind + ' km/h'"
+        [propertyDescription]="'Wind'"
+      ></app-weather-widget>
+      <app-weather-widget
+        [widgetType]="'TempProperty'"
+        [propertyIcon]="'assets/icon-property-sunrise.svg'"
+        [propertyValue]="weatherData.dailyForecast[0].sunrise | date: 'h:mm a'"
+        [propertyDescription]="'Sunrise'"
+      ></app-weather-widget>
+      <app-weather-widget
+        [widgetType]="'TempProperty'"
+        [propertyIcon]="'assets/icon-property-sunset.svg'"
+        [propertyValue]="weatherData.dailyForecast[0].sunset | date: 'h:mm a'"
+        [propertyDescription]="'Sunset'"
+      ></app-weather-widget>
+      <app-weather-widget
+        [widgetType]="'TempProperty'"
+        [propertyIcon]="'assets/icon-property-daytime.svg'"
+        [propertyValue]="
+          getDayTime(
+            weatherData.dailyForecast[0].sunrise,
+            weatherData.dailyForecast[0].sunset
+          ) | date: 'HH:mm'
+        "
+        [propertyDescription]="'Daytime'"
+      ></app-weather-widget>
+    </div>
+    <div class="forecast">
+      <app-weather-widget
+        class="mb-05"
+        [widgetType]="'Forecast'"
+        [weatherType]="weatherData.dailyForecast[1].weatherCondition.main"
+        [todayTempForecast]="weatherData.dailyForecast[1].temperature.day"
+        [forecastDay]="weatherData.dailyForecast[1].dt | date: 'EEE, dd'"
+        [forecastMin]="weatherData.dailyForecast[1].temperature.min"
+        [forecastMax]="weatherData.dailyForecast[1].temperature.max"
+      ></app-weather-widget>
+      <app-weather-widget
+        class="mb-05"
+        [widgetType]="'Forecast'"
+        [weatherType]="weatherData.dailyForecast[2].weatherCondition.main"
+        [todayTempForecast]="weatherData.dailyForecast[2].temperature.day"
+        [forecastDay]="weatherData.dailyForecast[2].dt | date: 'EEE, dd'"
+        [forecastMin]="weatherData.dailyForecast[2].temperature.min"
+        [forecastMax]="weatherData.dailyForecast[2].temperature.max"
+      ></app-weather-widget>
+      <app-weather-widget
+        class="mb-05"
+        [widgetType]="'Forecast'"
+        [weatherType]="weatherData.dailyForecast[3].weatherCondition.main"
+        [todayTempForecast]="weatherData.dailyForecast[3].temperature.day"
+        [forecastDay]="weatherData.dailyForecast[3].dt | date: 'EEE, dd'"
+        [forecastMin]="weatherData.dailyForecast[3].temperature.min"
+        [forecastMax]="weatherData.dailyForecast[3].temperature.max"
+      ></app-weather-widget>
+    </div>
+  </div>
+</div>
+<div class="modal-backdrop" *ngIf="searchingDialog" [@fadeIn]></div>

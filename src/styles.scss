@@ -1,0 +1,21 @@
+@import "./assets/styles/animations.scss";
+
+@import url("https://fonts.googleapis.com/css2?family=Barlow:wght@100;200;300;400;500;600;700;800;900&display=swap");
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  scrollbar-width: none;
+  font-family: Barlow;
+  font-style: normal;
+  font-weight: 500;
+  font-size: clamp(100%, 4.5vw, 150%);
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}

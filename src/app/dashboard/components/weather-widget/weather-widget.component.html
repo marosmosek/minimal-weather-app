@@ -1,0 +1,89 @@
+<ng-container [ngSwitch]="widgetType">
+  <div class="widget forecast" *ngSwitchCase="'Forecast'">
+    <ng-container
+      *ngIf="
+        todayTempForecast && forecastDay && forecastMin && forecastMax;
+        else forecastWidgetError
+      "
+    >
+      <img
+        [src]="getWeatherWidgetImageFromType()"
+        alt=""
+        *ngIf="getWeatherWidgetImageFromType()"
+        style="min-height: 36px"
+      />
+      <span>{{ forecastDay }}</span>
+      <span> {{ todayTempForecast }}°C </span>
+      <span>
+        {{ forecastMax | number: "1.0-0" }}°C
+        <img src="assets/icon-arrow-up.svg" />
+        {{ forecastMin | number: "1.0-0" }}°C
+        <img src="assets/icon-arrow-down.svg" />
+      </span>
+    </ng-container>
+    <ng-template #forecastWidgetError>
+      <span class="error">N/A</span>
+    </ng-template>
+  </div>
+
+  <div class="widget temp-property" *ngSwitchCase="'TempProperty'">
+    <ng-container
+      *ngIf="
+        propertyIcon && propertyValue && propertyDescription;
+        else tempPropertyWidgetError
+      "
+    >
+      <img [src]="propertyIcon" *ngIf="propertyIcon" />
+      <span>{{ propertyValue }}</span>
+      <span>{{ propertyDescription }}</span>
+    </ng-container>
+    <ng-template #tempPropertyWidgetError>
+      <span class="error">N/A</span>
+    </ng-template>
+  </div>
+
+  <div class="widget temp-variation" *ngSwitchCase="'TempVariation'">
+    <ng-container *ngIf="tempMin && tempMax; else tempVariationWidgetError">
+      <div class="temp max">
+        <span>{{ tempMax | number : '1.0-0' }} </span>
+        <span>°C</span>
+        <img src="assets/icon-arrow-up.svg" alt="" />
+      </div>
+      <div class="temp min">
+        <span>{{ tempMin | number : '1.0-0' }} </span>
+        <span>°C</span>
+        <img src="assets/icon-arrow-down.svg" alt="" />
+      </div>
+    </ng-container>
+    <ng-template #tempVariationWidgetError>
+      <span class="error">N/A</span>
+    </ng-template>
+  </div>
+
+  <div class="widget weather" *ngSwitchCase="'Weather'">
+    <ng-container *ngIf="weatherType; else weatherWidgetError">
+      <img
+        [src]="getWeatherWidgetImageFromType()"
+        alt=""
+        *ngIf="getWeatherWidgetImageFromType()"
+      />
+      <span>{{ weatherDescription }}</span>
+    </ng-container>
+    <ng-template #weatherWidgetError>
+      <span class="error">N/A</span>
+    </ng-template>
+  </div>
+
+  <div
+    class="widget full-screen-temperature"
+    *ngSwitchCase="'FullScreenTemperature'"
+  >
+    <ng-container *ngIf="todayTempForecast; else missingTodayTempForecast">
+      <span>{{ todayTempForecast | number: "1.0-0" }}</span>
+    </ng-container>
+    <ng-template #missingTodayTempForecast>
+      <span class="error">N/A</span>
+    </ng-template>
+  </div>
+  <div *ngSwitchDefault>Error</div>
+</ng-container>
