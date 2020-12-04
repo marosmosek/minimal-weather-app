@@ -13,7 +13,7 @@ import { createHttpObservable } from 'src/app/core/utils/utils';
 })
 export class PlacesService {
   private weatherApiUrl: string =
-    'http://api.openweathermap.org/data/2.5/weather';
+    'https://api.openweathermap.org/data/2.5/weather';
 
   places: Place[] = [
     { name: 'Bratislava', todayForecast: 0 },
