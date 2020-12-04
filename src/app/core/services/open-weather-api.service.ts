@@ -68,10 +68,8 @@ export class OpenWeatherApiService {
               icon: obsWeatherData.daily[index].weather[0].icon,
             });
         });
-        console.log(weather);
       }
     });
-    console.log(weather);
     return of(weather);
   }
 }

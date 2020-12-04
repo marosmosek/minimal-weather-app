@@ -72,9 +72,6 @@ export class DashboardComponent implements OnInit {
 
   public changeLocation(place: Place): void {
     this.weather$ = this.openWeatherApi.getWeatherForecast(place);
-    setTimeout(() => {
-      this.weather$.subscribe((x) => console.log);
-    }, 15000);
     this.toggleSearchingDialog();
   }
 
